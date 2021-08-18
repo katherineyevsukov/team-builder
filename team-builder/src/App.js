@@ -2,6 +2,7 @@ import './App.css';
 import React, { useState } from 'react';
 import initialTeamList from './dummyData'
 import Form from './Form'
+import ListItem from './ListItem'
 
 const initialFormValues = {
   name: '',
@@ -13,6 +14,8 @@ function App() {
   const [teamList, setTeamList] = useState(initialTeamList)
   const [formValues, setFormValues] = useState(initialFormValues)
   const [error, setError] = useState('')
+  // const [memberToEdit, setMemberToEdit] = useState('')
+  
   
   const updateForm = (inputName, inputValue) => {
 
@@ -24,7 +27,8 @@ function App() {
     const newMember = {
       name:formValues.name.trim(),
       email: formValues.email.trim(),
-      role: formValues.role
+      role: formValues.role,
+      id: Date.now() * Math.random()
     }
     if (!newMember.name || !newMember.role){
       setError('You must enter your name AND choose a role')
@@ -35,8 +39,8 @@ function App() {
     setTeamList([newMember, ...teamList])
     setFormValues(initialFormValues)
     setError('');
-  }
-  
+    console.log(newMember)
+  }  
 
   return (
     <div className="App">
@@ -44,7 +48,9 @@ function App() {
        <h1>The Team</h1>
        <ul>Members
        {teamList.map((member, idx) =>(
-         <li>{member.name} is a {member.role}</li>
+
+        <ListItem key={idx} member={member} teamList={teamList} setTeamList={setTeamList} />
+         
        ) )}
        </ul>
        <Form

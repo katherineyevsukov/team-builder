@@ -2,6 +2,8 @@ import React from 'react';
 
 
 
+
+
 export default function Form(props) {
 const { update, submit, values } = props
 
@@ -13,10 +15,14 @@ const onChange = evt => {
 
 const onSubmit = evt => {
     evt.preventDefault();
+//    if (memberToEdit === true){
+//        editMember()
+  
     submit();
 }
 
 return (
+    <>
     <form onSubmit={onSubmit}>
         <label>Name:
             <input
@@ -50,6 +56,8 @@ return (
             <button>Join!</button>
         </div>
     </form>
+    
+    </>
 )
 
 }
